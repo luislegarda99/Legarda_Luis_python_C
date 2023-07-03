@@ -1,0 +1,85 @@
+{% load bootstrap4 %}
+{%  load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        *{
+            margin:0;
+            padding: 0%;
+            }
+            header{
+                margin-top: 50px;
+            width: 100%;
+            height: 200px;
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            border-radius: 80px
+            }
+            
+            h1{
+                font-family: Arial, Helvetica, sans-serif;
+                color: black;
+                align-self: center;
+            }
+    </style>
+    <title>Proyecto 1</title>
+</head>
+<body>
+    <header>
+        <h1>Productos</h1>
+    </header>
+    {% block content %}
+    {% if productos %}
+    <div align=" center">
+        <div style="width: 70%;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Fecha de registro</th>
+                        <th scope="col">Estatus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <form>
+                            {% for producto in productos %}
+                                <tr>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ producto.descripcion }}</td>
+                                    <td>{{ producto.precio }}</td>
+                                    <td>{{ producto.fecha_registro }}</td>
+                                    <td>{{ producto.estatus }}</td>
+                                </tr>
+                                {% endfor %}
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+    {% else %}
+    <div>
+        No hay productos registrados
+    </div>
+    {% endif %}
+    <div class="form-group">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    </div>
+    </div>
+    {% endblock %}
+
+</body>
+</html>
